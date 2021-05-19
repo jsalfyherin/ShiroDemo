@@ -22,10 +22,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.common.entity.Page;
 import com.example.demo.common.util.PageData;
+import com.example.demo.configEntity.MethodUrlEntity;
 import com.example.demo.entity.UUser;
 import com.example.demo.service.AdminService;
 
@@ -47,7 +50,9 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-
+	@Autowired
+	private MethodUrlEntity methodUrlEntity;
+	
   //跳转到登录表单页面
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
@@ -56,16 +61,19 @@ public class AdminController {
     
     
     @RequestMapping("/")
-    public String index(Model model) {
+    public String index(Model model,Page page) {
     	model.addAttribute("hello", "hello Thymeleaf!");
-    	List<PageData> pd = new ArrayList<>();
+    	List<PageData> userList = new ArrayList<>();
+    	PageData pd = new PageData();
+		page.setPd(pd);
     	try {
-			pd = adminService.UserList();
+    		userList = adminService.UserList(page);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	model.addAttribute("userlist", pd);
+    	model.addAttribute("userlist", userList);
+    	model.addAttribute("pd", page);
         return "hello";
     }
 

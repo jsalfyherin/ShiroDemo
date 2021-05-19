@@ -18,11 +18,7 @@ public class AdminService {
 	@Autowired
 	private DaoSupport dao;
 	
-	public List<PageData> UserList() throws Exception {
-		Page noticePage = new Page();
-		noticePage.setPd(new PageData());
-		noticePage.setCurrentPage(1);
-		noticePage.setShowCount(2);
+	public List<PageData> UserList(Page noticePage) throws Exception {
 		return (List<PageData>) dao.findForList("SysAppUserMapper.listPageUser", noticePage);
 	}
 

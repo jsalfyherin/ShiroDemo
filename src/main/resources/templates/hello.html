@@ -4,6 +4,13 @@
     <head>
         <title>Hello World!</title>
     </head>
+    <style type="text/css">
+    	ul li{
+			list-style:none; 
+			padding-right:10px;
+			float:left;   	
+    	}
+    </style>
     <body>
         <h1 th:inline="text">thymeleaf Test</h1>
         <p th:text="${hello}"></p>  
@@ -11,11 +18,33 @@
         <h3 shiro:guest><a href="login.html">login</a></h3>
         <h3 shiro:hasRole="admin">admin will see</h3>
         <h3 shiro:hasRole="user">user will see</h3>
-        <h3 shiro:authenticated>Welcome <shiro:principal property="nickname"/> </h3>
-        <!-- 
-        <ul th:each="user : ${userlist}">  
-	        <li th:each="entry : ${user}"><p th:text="${entry.key}"></p>:<p th:text="${entry.value}"> </li>       
-	    </ul>
-     	 -->
+        <h3 shiro:authenticated>Welcome <shiro:principal property="nickname"/> <!-- <shiro:principal> --></h3>
+        <table>
+        	<tr>
+        		<td>nickname</td>
+        		<td>pswd</td>
+        	</tr>
+        	<tr th:each="user:${userlist}">
+        		<td th:text="${user.nickname}"></td>
+        		<td th:text="${user.pswd}"></td>
+        	</tr>
+        </table>
+     	 <div th:utext="${pd.pageStr}"></div>
     </body>
+	<script th:inline="javascript">
+		var url = window.location.href;
+		var arr = url.split("?");
+		var ar = arr[0];
+		function nextPage(page){
+			window.location.href=ar+"?currentPage="+page;
+		}
+		function toTZ(){
+			var toPaggeVlue = document.getElementById("toGoPage").value;
+			if(toPaggeVlue == ''){document.getElementById("toGoPage").value=1;return;}
+			if(isNaN(Number(toPaggeVlue))){document.getElementById("toGoPage").value=1;return;}
+			if(toPaggeVlue > [[${pd.totalPage}]]){toPaggeVlue = [[${pd.totalPage}]];}
+			if(toPaggeVlue < 1){toPaggeVlue = 1;}
+			nextPage(toPaggeVlue);
+		}
+	</script>
 </html>
