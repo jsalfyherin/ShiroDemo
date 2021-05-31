@@ -1,4 +1,9 @@
-<h3><a shiro:hasRole="admin" href="/userInfo/userAdd">userAdd</a></h3>
-<a href="/logout">logout</a>
-<a href="/">hello</a>
-<h3 shiro:authenticated>Welcome <shiro:principal property="nickname"/> </h3>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="common/layout1">
+   <body>
+      <section layout:fragment="content">abcde</section>
+		<h3><a shiro:hasRole="admin" href="/userInfo/userAdd">userAdd</a></h3>
+		<a href="/logout">logout</a>
+		<a href="/">hello</a>
+		<h3 shiro:authenticated>Welcome <shiro:principal property="nickname"/> </h3>
+</body>
+</html>

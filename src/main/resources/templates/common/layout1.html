@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title></title>
+    </head>
+	<body class="layout-fixed">
+	  <div th:fragment="navbar"  class="wrapper"  role="navigation">
+	    <div th:replace="fragments/header :: header">Header</div>
+	    <div th:replace="fragments/left :: left">left</div>
+	    <div th:replace="fragments/sidebar :: sidebar">sidebar</div>
+	    <div layout:fragment="content" id="content" ></div>
+	    <div th:replace="fragments/footer :: footer">footer</div>
+	  </div>
+	</body>
+</html>
