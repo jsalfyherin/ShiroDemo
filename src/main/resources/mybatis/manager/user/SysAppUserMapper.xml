@@ -9,42 +9,18 @@
 		  u_user
 
 	</select>
-	
-	<!-- URole resultMap映射  -->
-	<resultMap type="com.example.demo.entity.URole" id="URole">
-	        <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
-	        <id column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
-	        <id column="type" property="type" javaType="java.lang.String" jdbcType="VARCHAR"/>
-	</resultMap>	
 		<!-- 获取用户角色-->
-	<select id="findRoleByUid"   resultMap="URole">
-		SELECT role.id,role.name from u_user_role urole left join u_role role on urole.rid = role.id where urole.uid = #{0}
+	<select id="findRoleByUid"  resultType="com.example.demo.entity.URole">
+		SELECT role.id,role.name from u_user_role urole left join u_role role on urole.rid = role.id where urole.uid = #{id}
 	</select>
-	
-	<!-- UPermission resultMap映射  -->
-	<resultMap type="com.example.demo.entity.UPermission" id="UPermission">
-	        <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
-	        <id column="url" property="url" javaType="java.lang.String" jdbcType="VARCHAR"/>
-	        <id column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
-	</resultMap>
+
 	<!-- 获取用户权限-->
-	<select id="findPermissionByUid"   resultMap="UPermission">
-		SELECT p.* from u_user_role urole left join  u_role_permission rp   on urole.rid=rp.rid  left join  u_permission p on p.id = rp.pid  where urole.uid = #{0}
+	<select id="findPermissionByUid"   resultType="com.example.demo.entity.UPermission">
+		SELECT p.* from u_user_role urole left join  u_role_permission rp   on urole.rid=rp.rid  left join  u_permission p on p.id = rp.pid  where urole.uid = #{id}
 	</select>
-	
-	<!-- UUser resultMap映射  -->
-	<resultMap type="com.example.demo.entity.UUser" id="UUser">
-	        <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
-	        <id column="nickname" property="nickname" javaType="java.lang.String" jdbcType="VARCHAR"/>
-	        <id column="email" property="email" javaType="java.lang.String" jdbcType="VARCHAR"/>
-	        <id column="pswd" property="pswd" javaType="java.lang.String" jdbcType="VARCHAR"/>
-	        <id column="create_time" property="createTime" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
-	        <id column="last_login_time" property="lastLoginTime" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
-	        <id column="status" property="status" javaType="java.lang.Long" jdbcType="BIGINT"/>
-	</resultMap>
 	
 	<!--根据主键获取数据-->
-	<select id="findByName" resultMap="UUser">
+	<select id="findByName" resultType="com.example.demo.entity.UUser">
 		select <include refid="AllColumnlist"/> from u_user
 		<where>
 			nickname=#{nickname}
